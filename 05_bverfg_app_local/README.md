@@ -214,7 +214,7 @@ Das geschieht in Batches, damit größere Urteile effizient verarbeitet werden.
 
 ## `retrieval.py`
 
-Diese Datei enthält die Funktionen zum datenabruf aus dem Dataframe (**Retrieval**)
+Diese Datei enthält die Funktionen zum Datenabruf aus dem Dataframe (**Retrieval**)
 
 ### Aufgaben
 
@@ -296,7 +296,7 @@ Rückgabe als `dict` mit:
 
 ## `app.py`
 
-Diese Datei führtalle anderen Dateien zusammen und ist der Einstiegspunkt der Streamlit-Anwendung.
+Diese Datei führt alle anderen Dateien zusammen und ist der Einstiegspunkt der Streamlit-Anwendung.
 
 Sie enthält keine eigenen "Backend-Funktionen" mehr, sondern nur noch die Benutzeroberfläche und den Aufruf der übrigen Module.
 
@@ -323,7 +323,7 @@ Sie enthält keine eigenen "Backend-Funktionen" mehr, sondern nur noch die Benut
 
 ### Caching
 
-Cache ist ein Zwischenspeicher
+Cache ist ein Zwischenspeicher.
 Mit
 
 ```python
@@ -477,5 +477,5 @@ Nach dem ersten Embedding-Retrieval noch ein zweites Ranking durchführen.
 
 ### 5. PDF-Fallback
 
-Falls HTML nicht sauber geparst werden kann, könnte zusätzlich ein PDF-Fallback integriert werden.
-(bei BVerfG-Urteilen aber eher nicht notwendig)
+Falls HTML nicht sauber geparst werden kann, könnte zusätzlich ein PDF-Fallback integriert werden
+(bei BVerfG-Urteilen aber eher nicht notwendig).

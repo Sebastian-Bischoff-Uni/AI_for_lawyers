@@ -42,7 +42,7 @@ Notebooks zur Nutzung von Large Language Models:
 
 ### 03_semantic_similarity
 
-Materialien zur Ermittlung der semantischen Ähnlichkeit von Texten, die ein häufiger Abfragemechanismus in RAG-Systemen darstellt:
+Materialien zur Ermittlung der semantischen Ähnlichkeit von Texten, die ein häufigen Abfragemechanismus in RAG-Systemen darstellt:
 
 - semantische Suche in juristischen Texten,
 - Erstellung und Nutzung von Embeddings,
