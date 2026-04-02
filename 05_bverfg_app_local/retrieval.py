@@ -9,7 +9,7 @@ from config import EMBED_MODEL
 from embeddings import embed_texts
 
 
-def cosine_similarity(a: List[float], b: List[float]) -> float:
+def cosine_similarity(a, b):
     dot = sum(x * y for x, y in zip(a, b))
     norm_a = math.sqrt(sum(x * x for x in a))
     norm_b = math.sqrt(sum(y * y for y in b))
@@ -20,12 +20,7 @@ def cosine_similarity(a: List[float], b: List[float]) -> float:
     return dot / (norm_a * norm_b)
 
 
-def search_similar_passages(
-    query: str,
-    df: pd.DataFrame,
-    model: str = EMBED_MODEL,
-    top_k: int = 5,
-) -> pd.DataFrame:
+def search_similar_passages(query, df, model = EMBED_MODEL, top_k = 5):
     if "Embeddings" not in df.columns:
         raise ValueError("Die Spalte 'Embeddings' fehlt.")
 

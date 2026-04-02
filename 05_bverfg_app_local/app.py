@@ -4,13 +4,14 @@ import streamlit as st
 import pandas as pd
 
 from config import BATCH_SIZE, EMBED_MODEL, TOP_K
+
+from scraper import parse_bverfg_decision
 from embeddings import add_embeddings_to_df
 from rag import ask_rag
-from scraper import parse_bverfg_decision
 
 
-@st.cache_data(show_spinner=False)
-def build_index_from_url(url: str) -> pd.DataFrame:
+@st.cache_data() # Decorator von Streamlit - bewirkt, dass das Ergebnis der Funktion vorübergehend gespeichert wird
+def build_vectordb_from_url(url: str) -> pd.DataFrame:
     df = parse_bverfg_decision(url)
     df = add_embeddings_to_df(df, model=EMBED_MODEL, batch_size=BATCH_SIZE)
     return df
@@ -46,7 +47,7 @@ def main() -> None:
 
         try:
             with st.spinner("Urteil wird geladen und indexiert..."):
-                df = build_index_from_url(url)
+                df = build_vectordb_from_url(url)
 
             with st.spinner("Frage wird beantwortet..."):
                 result = ask_rag(question, df, top_k=TOP_K)

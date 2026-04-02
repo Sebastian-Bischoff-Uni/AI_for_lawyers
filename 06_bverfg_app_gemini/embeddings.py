@@ -7,7 +7,7 @@ from gemini_client import get_gemini_client
 from google.genai import types
 
 
-def embed_texts(texts: list[str], model: str = EMBED_MODEL) -> list[list[float]]:
+def embed_texts(texts, model= EMBED_MODEL):
     """
     Erzeugt Embeddings mit Gemini.
     """
@@ -25,7 +25,7 @@ def embed_texts(texts: list[str], model: str = EMBED_MODEL) -> list[list[float]]
     if not hasattr(response, "embeddings") or response.embeddings is None:
         raise ValueError(f"Unerwartete Embedding-Antwort: {response!r}")
 
-    embeddings: list[list[float]] = []
+    embeddings = []
 
     for item in response.embeddings:
         values = getattr(item, "values", None)
@@ -42,18 +42,14 @@ def embed_texts(texts: list[str], model: str = EMBED_MODEL) -> list[list[float]]
     return embeddings
 
 
-def add_embeddings_to_df(
-    df: pd.DataFrame,
-    model: str = EMBED_MODEL,
-    batch_size: int = BATCH_SIZE,
-) -> pd.DataFrame:
+def add_embeddings_to_df(df, model= EMBED_MODEL, batch_size = BATCH_SIZE):
     """
     Fügt einem DataFrame in Batches Embeddings hinzu.
     """
     df = df.copy()
     texts = df["Text"].tolist()
 
-    all_embeddings: list[list[float]] = []
+    all_embeddings = []
 
     for start in range(0, len(texts), batch_size):
         batch = texts[start:start + batch_size]

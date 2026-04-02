@@ -7,10 +7,10 @@ from config import CHAT_MODEL, EMBED_MODEL, TOP_K
 from retrieval import search_similar_passages
 
 
-def build_context_from_hits(hits: pd.DataFrame) -> str:
+def build_context_from_hits(hits):
     context_parts = []
 
-    for i, row in hits.iterrows():
+    for i, row in hits.iterrows(): # i ist index und row ist die jeweilige Zeile aus dem Dataframe (hits ist der df mit den tok-k Ergebnissen)
         randnummer = row["Randnummer"]
         text = row["Text"]
         score = row.get("Score", None)
@@ -26,7 +26,7 @@ def build_context_from_hits(hits: pd.DataFrame) -> str:
     return "\n\n".join(context_parts)
 
 
-def build_rag_prompt(query: str, hits: pd.DataFrame) -> str:
+def build_rag_prompt(query, hits):
     context = build_context_from_hits(hits)
 
     prompt = f"""
@@ -49,14 +49,9 @@ Antworte präzise, juristisch sauber und gut strukturiert.
     return prompt.strip()
 
 
-def ask_rag(
-    query: str,
-    df: pd.DataFrame,
-    retrieval_model: str = EMBED_MODEL,
-    chat_model: str = CHAT_MODEL,
-    top_k: int = TOP_K,
-) -> dict:
-    hits = search_similar_passages(
+def ask_rag(query, df, retrieval_model= EMBED_MODEL, chat_model = CHAT_MODEL, top_k = TOP_K,):
+    
+    hits = search_similar_passages(     # Schritt 1: ähnliche Passagen werden gesucht
         query=query,
         df=df,
         model=retrieval_model,
@@ -68,13 +63,6 @@ def ask_rag(
     response = ollama.chat(
         model=chat_model,
         messages=[
-            {
-                "role": "system",
-                "content": (
-                    "Du beantwortest Fragen zu BVerfG-Entscheidungen "
-                    "ausschließlich auf Basis des bereitgestellten Kontexts."
-                ),
-            },
             {
                 "role": "user",
                 "content": prompt,

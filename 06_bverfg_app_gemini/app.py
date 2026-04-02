@@ -16,7 +16,7 @@ from scraper import parse_bverfg_decision
 
 
 @st.cache_data(show_spinner=False)
-def build_index_from_url(url: str) -> pd.DataFrame:
+def build_index_from_url(url):
     df = parse_bverfg_decision(url)
     df = add_embeddings_to_df(df, model=EMBED_MODEL, batch_size=BATCH_SIZE)
     return df
@@ -42,12 +42,14 @@ def main() -> None:
         height=120,
     )
 
-    if st.button("Frage beantworten", type="primary"):
-        if not url.strip():
+    button = st.button("Frage beantworten", type="primary")
+
+    if button:
+        if not url.strip():     #sicherhet/debugging
             st.error("Bitte eine URL eingeben.")
             return
 
-        if not question.strip():
+        if not question.strip():    #sicherhet/debugging
             st.error("Bitte eine Frage eingeben.")
             return
 
