@@ -23,11 +23,12 @@ def main() -> None:
     st.title("BVerfG-RAG mit Ollama")
     st.write(
         "URL eines BVerfG-Urteils eingeben, Frage stellen und Antwort samt Fundstellen abrufen."
-    )
+        )
 
     url = st.text_input(
         "URL des BVerfG-Urteils",
-        value="zum Beispiel: https://www.bundesverfassungsgericht.de/SharedDocs/Entscheidungen/DE/2025/03/rs20250326_2bvr150520.html",
+        value="",
+        placeholder="zum Beispiel: https://www.bundesverfassungsgericht.de/SharedDocs/Entscheidungen/DE/2025/03/rs20250326_2bvr150520.html",
     )
 
     question = st.text_area(
@@ -36,7 +37,9 @@ def main() -> None:
         height=120,
     )
 
-    if st.button("Frage beantworten", type="primary"):
+    button = st.button("Frage beantworten", type="secondary")
+    
+    if button:
         if not url.strip():
             st.error("Bitte eine URL eingeben.")
             return
@@ -72,7 +75,7 @@ def main() -> None:
 
             with st.expander("DataFrame-Vorschau"):
                 st.dataframe(
-                    df[["Randnummer", "Text"]].head(20),
+                    df[["Randnummer", "Embeddings", "Text"]].head(20),
                     use_container_width=True,
                 )
 
@@ -82,6 +85,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-    #Befehl in terminal: uv run streamlit run app.py
+    # Befehl in terminal: uv run streamlit run app.py
     # Beispiel-URL: https://www.bundesverfassungsgericht.de/SharedDocs/Entscheidungen/DE/2023/11/ls20231128_2bvl000813.html?nn=68020
     # passende Frage: Kann § 6 Abs. 5 EStG nach Rechtsprechung des BVerfG noch in verfassungskonformer Weise ausgelegt werden?

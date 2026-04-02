@@ -58,3 +58,4 @@ def add_embeddings_to_df(df, model= EMBED_MODEL, batch_size = BATCH_SIZE):
 
     df["Embeddings"] = all_embeddings
     return df
+
